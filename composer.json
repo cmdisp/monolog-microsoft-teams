@@ -1,0 +1,17 @@
+{
+    "name": "cmdisp/monolog-microsoft-teams",
+    "description": "Monolog Handler for sending messages to Microsoft Teams using the Incoming Webhook connector",
+    "license": "MIT",
+    "require": {
+        "php": "^7.0",
+        "monolog/monolog": "^1.23"
+    },
+    "require-dev": {
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "CMDISP\\MonologMicrosoftTeams\\": "src/"
+        }
+    }
+}
