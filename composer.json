@@ -3,15 +3,24 @@
     "description": "Monolog Handler for sending messages to Microsoft Teams using the Incoming Webhook connector",
     "license": "MIT",
     "require": {
-        "php": "^7.0",
-        "monolog/monolog": "^1.23"
+        "php": "^7.2",
+        "monolog/monolog": "^1.23|^2.0"
     },
     "require-dev": {
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "php-coveralls/php-coveralls": "^2.0",
+        "phpunit/phpunit": "^5.7|^6.0|^7.0"
     },
     "autoload": {
         "psr-4": {
             "CMDISP\\MonologMicrosoftTeams\\": "src/"
         }
+    },
+    "scripts": {
+        "phpunit": "phpunit --colors=auto --coverage-text",
+        "watch": "phpunit-watcher watch",
+        "test": [
+            "@phpunit"
+        ]
     }
 }
