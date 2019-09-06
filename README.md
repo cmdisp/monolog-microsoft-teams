@@ -54,6 +54,22 @@ You can also add `teams` to the default `stack` channel so all errors are automa
 ],
 ```
 
+## Unit testing · PhpUnit
+
+The tests require a valid Teams [Incoming Webhook URL.](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors/connectors-using) To provide this URL to PhpUnit, copy `phpunit.xml.dist` to `phpunit.xml`and set the URL in the `<php>` section. Make sure to not commit your local *phpunit.xml* into the repo!
+
+```xml
+<php>
+    <env name="TEAMS_INCOMING_WEBHOOK_URL" value="https://outlook.office.com/webhook/..." />
+</php>
+```
+
+Run the tests on the command line:
+
+```bash
+$ composer test
+```
+
 ## License
 
 monolog-microsoft-teams is available under the MIT license. See the LICENSE file for more info.

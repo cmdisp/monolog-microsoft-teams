@@ -51,7 +51,7 @@ class TeamsLogHandler extends AbstractProcessingHandler
     /**
      * @param array $record
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         $json = json_encode($this->getMessage($record));
 
