@@ -2,5 +2,5 @@
 /composer.lock
 /composer.phar
 /vendor
-tests/build
+tests/logs
 phpunit.xml

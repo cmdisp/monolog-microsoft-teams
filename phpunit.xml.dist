@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit colors="true"
-		 stopOnFailure="true"
-		 bootstrap="tests/bootstrap.php"
-		 beStrictAboutCoversAnnotation="true"
-		 verbose="true">
-
-	<testsuites>
-		<testsuite name="Test Suite">
-			<directory>tests/src</directory>
-		</testsuite>
-	</testsuites>
-
-	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory>src</directory>
-		</whitelist>
-	</filter>
-
-	<php>
-		<env name="TEAMS_INCOMING_WEBHOOK_URL" value="" />
-	</php>
-
-	<logging>
-		<log type="coverage-clover" target="var/build/logs/clover.xml"/>
-		<log type="coverage-html"   target="var/build/logs/html/"/>
-		<log type="coverage-text"   target="php://stdout" showUncoveredFiles="true" />
-		<log type="testdox-html"    target="var/build/logs/testdox.html"/>
-		<log type="testdox-text"    target="var/build/logs/testdox.txt"/>
-	</logging>
-
+         stopOnFailure="true"
+         bootstrap="tests/bootstrap.php"
+         beStrictAboutCoversAnnotation="true"
+         verbose="true">
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>tests/src</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>src</directory>
+        </whitelist>
+    </filter>
+    <php>
+        <env name="TEAMS_INCOMING_WEBHOOK_URL" value=""/>
+    </php>
+    <logging>
+        <log type="coverage-clover" target="logs/clover.xml"/>
+        <log type="coverage-html" target="logs/html/"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+        <log type="testdox-html" target="logs/testdox.html"/>
+        <log type="testdox-text" target="logs/testdox.txt"/>
+    </logging>
 </phpunit>
