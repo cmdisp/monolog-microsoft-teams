@@ -17,7 +17,7 @@ class TeamsLogHandlerTest extends TestCase
      */
     private $loglevel = Logger::DEBUG;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
