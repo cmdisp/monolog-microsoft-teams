@@ -14,7 +14,11 @@
     },
     "autoload": {
         "psr-4": {
-            "CMDISP\\MonologMicrosoftTeams\\": "src/",
+            "CMDISP\\MonologMicrosoftTeams\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "CMDISP\\MonologMicrosoftTeams\\Tests\\": "tests/"
         }
     },
