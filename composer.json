@@ -4,16 +4,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.2|^8.0",
-        "monolog/monolog": "^1.23|^2.0"
+        "monolog/monolog": "^1.23|^2.0",
+        "ext-json": "*",
+        "ext-curl": "*"
     },
     "require-dev": {
-        "ext-curl": "*",
         "php-coveralls/php-coveralls": "^2.0",
         "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "psr-4": {
-            "CMDISP\\MonologMicrosoftTeams\\": "src/"
+            "CMDISP\\MonologMicrosoftTeams\\": "src/",
+            "CMDISP\\MonologMicrosoftTeams\\Tests\\": "tests/"
         }
     },
     "scripts": {

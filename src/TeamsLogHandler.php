@@ -1,4 +1,5 @@
 <?php
+
 namespace CMDISP\MonologMicrosoftTeams;
 
 use Monolog\Logger;
@@ -6,7 +7,9 @@ use Monolog\Handler\AbstractProcessingHandler;
 
 class TeamsLogHandler extends AbstractProcessingHandler
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $url;
 
     /**
@@ -40,7 +43,7 @@ class TeamsLogHandler extends AbstractProcessingHandler
      *
      * @return TeamsMessage
      */
-    protected function getMessage(array $record)
+    protected function getMessage(array $record): TeamsMessage
     {
         return new TeamsMessage([
             'title' => $record['level_name'] . ': ' . $record['message'],

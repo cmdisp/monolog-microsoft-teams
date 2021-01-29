@@ -2,9 +2,14 @@
 
 namespace CMDISP\MonologMicrosoftTeams;
 
-class TeamsMessage implements \ArrayAccess, \JsonSerializable
+use ArrayAccess;
+use JsonSerializable;
+
+class TeamsMessage implements ArrayAccess, JsonSerializable
 {
-    /** @var array */
+    /**
+     * @var array
+     */
     private $data;
 
     /**
@@ -27,7 +32,7 @@ class TeamsMessage implements \ArrayAccess, \JsonSerializable
      * The return value will be casted to boolean if non-boolean was returned.
      * @since 5.0.0
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
@@ -84,7 +89,7 @@ class TeamsMessage implements \ArrayAccess, \JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array_merge([
             '@context' => 'http://schema.org/extensions',

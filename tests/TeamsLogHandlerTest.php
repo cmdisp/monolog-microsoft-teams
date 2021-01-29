@@ -1,9 +1,12 @@
 <?php
 
+namespace CMDISP\MonologMicrosoftTeams\Tests;
+
 use CMDISP\MonologMicrosoftTeams\TeamsLogHandler;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class TeamsLogHandlerTest extends TestCase
 {
@@ -17,7 +20,7 @@ class TeamsLogHandlerTest extends TestCase
      */
     private $loglevel = Logger::DEBUG;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -26,7 +29,7 @@ class TeamsLogHandlerTest extends TestCase
         }
     }
 
-    private function createLogHandler()
+    private function createLogHandler(): TeamsLogHandler
     {
         return new TeamsLogHandler($this->incomingWebHookUrl, $this->loglevel);
     }

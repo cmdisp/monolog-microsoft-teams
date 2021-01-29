@@ -3,13 +3,14 @@
 namespace CMDISP\MonologMicrosoftTeams;
 
 use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 class TeamsLogChannel
 {
     /**
      * @param array $config
      *
-     * @return \Psr\Log\LoggerInterface
+     * @return LoggerInterface
      */
     public function __invoke(array $config)
     {

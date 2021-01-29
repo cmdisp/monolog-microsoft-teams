@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	colors="true"
-	stopOnFailure="true"
-	bootstrap="tests/bootstrap.php"
-	beStrictAboutCoversAnnotation="true"
-	verbose="true"
-	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory>src</directory>
-    </include>
-    <report>
-      <clover outputFile="logs/clover.xml"/>
-      <html outputDirectory="logs/html/"/>
-      <text outputFile="php://stdout" showUncoveredFiles="true"/>
-    </report>
-  </coverage>
-
-  <testsuites>
-    <testsuite name="Test Suite">
-      <directory>tests/src</directory>
-    </testsuite>
-  </testsuites>
-
-  <php>
-    <env name="TEAMS_INCOMING_WEBHOOK_URL" value=""/>
-  </php>
-
-  <logging>
-    <testdoxHtml outputFile="logs/testdox.html"/>
-    <testdoxText outputFile="logs/testdox.txt"/>
-  </logging>
+         colors="true"
+         stopOnFailure="true"
+         bootstrap="tests/bootstrap.php"
+         beStrictAboutCoversAnnotation="true"
+         verbose="true"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory>src</directory>
+        </include>
+        <report>
+            <clover outputFile="logs/clover.xml"/>
+            <html outputDirectory="logs/html/"/>
+            <text outputFile="php://stdout" showUncoveredFiles="true"/>
+        </report>
+    </coverage>
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="TEAMS_INCOMING_WEBHOOK_URL" value=""/>
+    </php>
+    <logging>
+        <testdoxHtml outputFile="logs/testdox.html"/>
+        <testdoxText outputFile="logs/testdox.txt"/>
+    </logging>
 </phpunit>
