@@ -7,8 +7,8 @@ use Monolog\Logger;
 class TeamsLogger extends Logger
 {
     /**
-     * @param $url
-     * @param int $level
+     * @param string $url
+     * @param int|string $level
      * @param bool $bubble
      */
     public function __construct($url, $level = Logger::DEBUG, $bubble = true)

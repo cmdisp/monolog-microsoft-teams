@@ -27,8 +27,8 @@ class TeamsLogHandler extends AbstractProcessingHandler
     ];
 
     /**
-     * @param $url
-     * @param int $level
+     * @param string $url
+     * @param int|string $level
      * @param bool $bubble
      */
     public function __construct($url, $level = Logger::DEBUG, $bubble = true)
