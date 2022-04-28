@@ -52,7 +52,7 @@ class TeamsLogHandlerTest extends TestCase
         $this->assertTrue($monolog->isHandling($this->loglevel));
 
         // Send a message
-        $result = $monolog->addRecord($this->loglevel, 'test');
+        $result = $monolog->addRecord($this->loglevel, 'test', ['foo' => 'bar']);
         $this->assertTrue($result);
     }
 }
