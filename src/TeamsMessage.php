@@ -46,7 +46,8 @@ class TeamsMessage implements ArrayAccess, JsonSerializable
      * @return mixed Can return all value types.
      * @since 5.0.0
      */
-    public function offsetGet($offset): mixed
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset)
     {
         return $this->data[$offset] ?? null;
     }
