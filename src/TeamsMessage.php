@@ -46,6 +46,7 @@ class TeamsMessage implements ArrayAccess, JsonSerializable
      * @return mixed Can return all value types.
      * @since 5.0.0
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->data[$offset] ?? null;
@@ -63,6 +64,7 @@ class TeamsMessage implements ArrayAccess, JsonSerializable
      * @return void
      * @since 5.0.0
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -81,6 +83,7 @@ class TeamsMessage implements ArrayAccess, JsonSerializable
      * @return void
      * @since 5.0.0
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->data[$offset]);
