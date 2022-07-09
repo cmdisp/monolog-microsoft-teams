@@ -2,18 +2,17 @@
 
 namespace CMDISP\MonologMicrosoftTeams;
 
-use Monolog\Logger;
-use Psr\Log\LoggerInterface;
+use Monolog\Level;
 
 class TeamsLogChannel
 {
     /**
      * @param array $config
      *
-     * @return LoggerInterface
+     * @return TeamsLogger
      */
-    public function __invoke(array $config)
+    public function __invoke(array $config): TeamsLogger
     {
-        return new TeamsLogger($config['url'], $config['level'] ?? Logger::DEBUG);
+        return new TeamsLogger($config['url'], $config['level'] ?? Level::Debug);
     }
 }

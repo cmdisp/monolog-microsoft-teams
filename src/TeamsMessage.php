@@ -10,12 +10,12 @@ class TeamsMessage implements ArrayAccess, JsonSerializable
     /**
      * @var array
      */
-    private $data;
+    private array $data;
 
     /**
      * @param array $data
      */
-    public function __construct($data = [])
+    public function __construct(array $data = [])
     {
         $this->data = $data;
     }
@@ -32,7 +32,7 @@ class TeamsMessage implements ArrayAccess, JsonSerializable
      * The return value will be casted to boolean if non-boolean was returned.
      * @since 5.0.0
      */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->data[$offset]);
     }
@@ -46,7 +46,7 @@ class TeamsMessage implements ArrayAccess, JsonSerializable
      * @return mixed Can return all value types.
      * @since 5.0.0
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->data[$offset] ?? null;
     }
@@ -63,7 +63,7 @@ class TeamsMessage implements ArrayAccess, JsonSerializable
      * @return void
      * @since 5.0.0
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->data[] = $value;
@@ -81,7 +81,7 @@ class TeamsMessage implements ArrayAccess, JsonSerializable
      * @return void
      * @since 5.0.0
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->data[$offset]);
     }

@@ -2,36 +2,34 @@
 
 namespace CMDISP\MonologMicrosoftTeams;
 
-use Monolog\Logger;
+use Monolog\Level;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\LogRecord;
 
 class TeamsLogHandler extends AbstractProcessingHandler
 {
-    /**
-     * @var string
-     */
-    private $url;
+    private string $url;
 
     /**
      * @var array
      */
-    private static $levelColors = [
-        Logger::DEBUG => '0080FF',
-        Logger::INFO => '0080FF',
-        Logger::NOTICE => '0080FF',
-        Logger::WARNING => 'FF8000',
-        Logger::ERROR => 'FF0000',
-        Logger::CRITICAL => 'FF0000',
-        Logger::ALERT => 'FF0000',
-        Logger::EMERGENCY => 'FF0000',
+    private static array $levelColors = [
+        'DEBUG' => '0080FF',
+        'INFO' => '0080FF',
+        'NOTICE' => '0080FF',
+        'WARNING' => 'FF8000',
+        'ERROR' => 'FF0000',
+        'CRITICAL' => 'FF0000',
+        'ALERT' => 'FF0000',
+        'EMERGENCY' => 'FF0000',
     ];
 
     /**
      * @param string $url
-     * @param int|string $level
+     * @param int|string|Level $level
      * @param bool $bubble
      */
-    public function __construct($url, $level = Logger::DEBUG, $bubble = true)
+    public function __construct(string $url, int|string|Level $level = Level::Debug, bool $bubble = true)
     {
         parent::__construct($level, $bubble);
 
@@ -39,23 +37,23 @@ class TeamsLogHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @param array $record
+     * @param LogRecord $record
      *
      * @return TeamsMessage
      */
-    protected function getMessage(array $record): TeamsMessage
+    protected function getMessage(LogRecord $record): TeamsMessage
     {
         return new TeamsMessage([
-            'title' => $record['level_name'] . ': ' . $record['message'],
-            'text' => $record['formatted'],
-            'themeColor' => self::$levelColors[$record['level']] ?? self::$levelColors[$this->level],
+            'title' => $record->level->getName() . ': ' . $record->message,
+            'text' => $record->formatted,
+            'themeColor' => self::$levelColors[$record->level->getName()] ?? self::$levelColors[$this->level->getName()],
         ]);
     }
 
     /**
-     * @param array $record
+     * Writes the (already formatted) record down to the log of the implementing handler
      */
-    protected function write(array $record): void
+    protected function write(LogRecord $record): void
     {
         $json = json_encode($this->getMessage($record));
 
