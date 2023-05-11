@@ -3,8 +3,8 @@
 namespace CMDISP\MonologMicrosoftTeams;
 
 use Monolog\Formatter\FormatterInterface;
-use Monolog\Logger;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Logger;
 
 class TeamsLogHandler extends AbstractProcessingHandler
 {
@@ -28,62 +28,39 @@ class TeamsLogHandler extends AbstractProcessingHandler
     ];
 
     /**
-     * @param string $url
      * @param int|string $level
-     * @param bool $bubble
      */
-    public function __construct($url, $level = Logger::DEBUG, $bubble = true)
-    {
+    public function __construct(
+        string $url,
+        $level = Logger::DEBUG,
+        bool $bubble = true,
+        FormatterInterface $formatter = null
+    ) {
         parent::__construct($level, $bubble);
 
         $this->url = $url;
+
+        if ($formatter) {
+            $this->setFormatter($formatter);
+        }
     }
 
-    /**
-     * @param array $record
-     *
-     * @return TeamsMessage
-     */
     protected function getMessage(array $record): TeamsMessage
     {
-        return new TeamsMessage($this->getTeamsMessageData($record));
-    }
-    
-    /**
-     * privides initial data for teams message class depending on the formatter
-     *
-     * @param array $record
-     * @return array
-     */
-    private function getTeamsMessageData(array $record): array
-    {
-        $themeColor = $this->getThemeColor($record['level']);
-
         if ($this->formatter instanceof TeamsFormatter) {
-            return array_merge($record['formatted'], ['themeColor' => $themeColor]);
+            $data = $record['formatted'];
+        } else {
+            $data = [
+                'title' => $record['level_name'] . ': ' . $record['message'],
+                'text' => $record['formatted'],
+            ];
         }
-        
-        return [
-            'title' => $record['level_name'] . ': ' . $record['message'],
-            'text' => $record['formatted'],
-            'themeColor' => $themeColor,
-        ];
-    }
-    
-    /**
-     * returns theme color according to log level
-     *
-     * @param integer $level
-     * @return string
-     */
-    private function getThemeColor(int $level):string
-    {
-        return self::$levelColors[$level] ?? self::$levelColors[$this->level];
+
+        $data['themeColor'] = $this->getThemeColor($record['level']);
+
+        return new TeamsMessage($data);
     }
 
-    /**
-     * @param array $record
-     */
     protected function write(array $record): void
     {
         $json = json_encode($this->getMessage($record));
@@ -102,13 +79,8 @@ class TeamsLogHandler extends AbstractProcessingHandler
         curl_exec($ch);
     }
 
-    /**
-     * Teams specific formatter
-     *
-     * @return FormatterInterface
-     */
-    protected function getDefaultFormatter(): FormatterInterface
+    private function getThemeColor(int $level): string
     {
-        return new TeamsFormatter();
+        return self::$levelColors[$level] ?? self::$levelColors[$this->level];
     }
 }

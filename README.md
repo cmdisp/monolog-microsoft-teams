@@ -32,6 +32,7 @@ Create a [custom channel](https://laravel.com/docs/master/logging#creating-custo
 'teams' => [
     'driver' => 'custom',
     'via' => \CMDISP\MonologMicrosoftTeams\TeamsLogChannel::class,
+    'formatter' => \CMDISP\MonologMicrosoftTeams\TeamsFormatter::class,
     'level' => 'error',
     'url' => 'INCOMING_WEBHOOK_URL',
 ],

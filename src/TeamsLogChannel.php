@@ -7,13 +7,18 @@ use Psr\Log\LoggerInterface;
 
 class TeamsLogChannel
 {
-    /**
-     * @param array $config
-     *
-     * @return LoggerInterface
-     */
-    public function __invoke(array $config)
+    public function __invoke(array $config): LoggerInterface
     {
-        return new TeamsLogger($config['url'], $config['level'] ?? Logger::DEBUG);
+        $formatter = null;
+        if (isset($config['formatter'])) {
+            $formatter = new $config['formatter']();
+        }
+
+        return new TeamsLogger(
+            $config['url'],
+            $config['level'] ?? Logger::DEBUG,
+            true,
+            $formatter
+        );
     }
 }
