@@ -1,6 +1,7 @@
 .idea/
-/composer.phar
-/vendor
-/logs
-phpunit.xml
+/.phpunit.cache
 /.phpunit.result.cache
+/composer.phar
+/logs
+/vendor
+phpunit.xml

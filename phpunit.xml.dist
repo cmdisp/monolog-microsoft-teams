@@ -3,13 +3,10 @@
          colors="true"
          stopOnFailure="true"
          bootstrap="tests/bootstrap.php"
-         beStrictAboutCoversAnnotation="true"
-         verbose="true"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory>src</directory>
-        </include>
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
+         cacheDirectory=".phpunit.cache"
+         beStrictAboutCoverageMetadata="true">
+    <coverage>
         <report>
             <clover outputFile="logs/clover.xml"/>
             <html outputDirectory="logs/html/"/>
@@ -28,4 +25,9 @@
         <testdoxHtml outputFile="logs/testdox.html"/>
         <testdoxText outputFile="logs/testdox.txt"/>
     </logging>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
 </phpunit>

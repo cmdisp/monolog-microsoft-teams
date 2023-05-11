@@ -4,21 +4,14 @@ namespace CMDISP\MonologMicrosoftTeams\Tests;
 
 use CMDISP\MonologMicrosoftTeams\TeamsLogHandler;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Level;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
 class TeamsLogHandlerTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $incomingWebHookUrl;
-
-    /**
-     * @var int
-     */
-    private $loglevel = Logger::DEBUG;
+    private string $incomingWebHookUrl;
 
     public function setUp(): void
     {
@@ -31,7 +24,7 @@ class TeamsLogHandlerTest extends TestCase
 
     private function createLogHandler(): TeamsLogHandler
     {
-        return new TeamsLogHandler($this->incomingWebHookUrl, $this->loglevel);
+        return new TeamsLogHandler($this->incomingWebHookUrl);
     }
 
     public function testInstantiation(): void
@@ -49,10 +42,10 @@ class TeamsLogHandlerTest extends TestCase
         $monolog->pushHandler($logHandler);
 
         // "isHandling" will return false when no handlers at all are registered with Monolog.
-        $this->assertTrue($monolog->isHandling($this->loglevel));
+        $this->assertTrue($monolog->isHandling(Level::Debug));
 
         // Send a message
-        $result = $monolog->addRecord($this->loglevel, 'test', ['foo' => 'bar']);
+        $result = $monolog->addRecord(Level::Debug, 'test', ['foo' => 'bar']);
         $this->assertTrue($result);
     }
 }

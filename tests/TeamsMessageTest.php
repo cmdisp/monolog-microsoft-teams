@@ -29,7 +29,7 @@ class TeamsMessageTest extends TestCase
         $this->assertEquals($message->offsetGet($dataKey), $dataValue);
     }
 
-    public function provideMessageData(): array
+    public static function provideMessageData(): array
     {
         return [
             ['foo', 'bar']

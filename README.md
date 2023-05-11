@@ -11,15 +11,10 @@ $ composer require cmdisp/monolog-microsoft-teams
 ## Usage
 
 ```php
-$logger = new \CMDISP\MonologMicrosoftTeams\TeamsLogger('INCOMING_WEBHOOK_URL', \Monolog\Logger::ERROR);
-$logger->error('Error message');
-```
-
-or
-
-```php
 $logger = new \Monolog\Logger('app');
-$logger->pushHandler(new \CMDISP\MonologMicrosoftTeams\TeamsLogHandler('INCOMING_WEBHOOK_URL', \Monolog\Logger::ERROR));
+$logger->pushHandler(new \CMDISP\MonologMicrosoftTeams\TeamsLogHandler('INCOMING_WEBHOOK_URL', \Monolog\Level::Error));
+
+$logger->error('Error message');
 ```
 
 ## Usage with Laravel/Lumen framework (5.6+)
@@ -32,7 +27,6 @@ Create a [custom channel](https://laravel.com/docs/master/logging#creating-custo
 'teams' => [
     'driver' => 'custom',
     'via' => \CMDISP\MonologMicrosoftTeams\TeamsLogChannel::class,
-    'formatter' => \CMDISP\MonologMicrosoftTeams\TeamsFormatter::class,
     'level' => 'error',
     'url' => 'INCOMING_WEBHOOK_URL',
 ],

@@ -3,16 +3,17 @@
 namespace CMDISP\MonologMicrosoftTeams;
 
 use Monolog\Formatter\FormatterInterface;
+use Monolog\LogRecord;
 
 class TeamsFormatter implements FormatterInterface
 {
-    public function format(array $record): array
+    public function format(LogRecord $record): array
     {
         return [
-            'text' => '**' . $record['level_name'] . '**: ' . $record['message'],
+            'text' => '**' . $record->level->getName() . '**: ' . $record->message,
             'sections' => [
                 [
-                    'facts' => $this->facts($record['context']),
+                    'facts' => $this->facts($record->context),
                 ],
             ],
         ];

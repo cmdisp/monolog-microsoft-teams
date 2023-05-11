@@ -2,65 +2,31 @@
 
 namespace CMDISP\MonologMicrosoftTeams;
 
-use Monolog\Level;
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Level;
 use Monolog\LogRecord;
 
 class TeamsLogHandler extends AbstractProcessingHandler
 {
-    private string $url;
-
-    /**
-     * @var array
-     */
-    private static array $levelColors = [
-        'DEBUG' => '0080FF',
-        'INFO' => '0080FF',
-        'NOTICE' => '0080FF',
-        'WARNING' => 'FF8000',
-        'ERROR' => 'FF0000',
-        'CRITICAL' => 'FF0000',
-        'ALERT' => 'FF0000',
-        'EMERGENCY' => 'FF0000',
-    ];
-
-    /**
-     * @param string $url
-     * @param int|string|Level $level
-     * @param bool $bubble
-     */
-    public function __construct(string $url, int|string|Level $level = Level::Debug, bool $bubble = true)
-    {
+    public function __construct(
+        private readonly string $url,
+        int|string|Level $level = Level::Debug,
+        bool $bubble = true,
+        FormatterInterface $formatter = null,
+    ) {
         parent::__construct($level, $bubble);
 
-        $this->url = $url;
+        $this->setFormatter($formatter ?? new TeamsFormatter());
     }
 
-    /**
-     * @param LogRecord $record
-     *
-     * @return TeamsMessage
-     */
-    protected function getMessage(LogRecord $record): TeamsMessage
-    {
-        return new TeamsMessage([
-            'title' => $record->level->getName() . ': ' . $record->message,
-            'text' => $record->formatted,
-            'themeColor' => self::$levelColors[$record->level->getName()] ?? self::$levelColors[$this->level->getName()],
-        ]);
-    }
-
-    /**
-     * Writes the (already formatted) record down to the log of the implementing handler
-     */
     protected function write(LogRecord $record): void
     {
-        $json = json_encode($this->getMessage($record));
+        $json = json_encode($this->teamsMessage($record));
 
         $ch = curl_init($this->url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -69,5 +35,30 @@ class TeamsLogHandler extends AbstractProcessingHandler
         ]);
 
         curl_exec($ch);
+    }
+
+    private function teamsMessage(LogRecord $record): TeamsMessage
+    {
+        if ($this->formatter instanceof TeamsFormatter) {
+            $data = $record->formatted;
+        } else {
+            $data = [
+                'title' => $record->level->getName() . ': ' . $record->message,
+                'text' => $record->formatted,
+            ];
+        }
+
+        $data['themeColor'] = $this->themeColor($record->level);
+
+        return new TeamsMessage($data);
+    }
+
+    private function themeColor(Level $level): string
+    {
+        return match ($level) {
+            Level::Warning => 'FF8000',
+            Level::Error, Level::Critical, Level::Alert, Level::Emergency => 'FF0000',
+            default => '0080FF',
+        };
     }
 }
