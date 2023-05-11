@@ -9,27 +9,24 @@ use PHPUnit\Framework\TestCase;
 
 class TeamsMessageTest extends TestCase
 {
-    public function testInterfaces()
+    public function testInterfaces(): void
     {
-        $sut = new TeamsMessage(array());
-        $this->assertInstanceOf(ArrayAccess::class, $sut);
-        $this->assertInstanceOf(JsonSerializable::class, $sut);
+        $message = new TeamsMessage();
+        $this->assertInstanceOf(ArrayAccess::class, $message);
+        $this->assertInstanceOf(JsonSerializable::class, $message);
     }
 
     /**
      * @dataProvider provideMessageData
-     *
-     * @param $dataKey
-     * @param $dataValue
      */
-    public function testGetter($dataKey, $dataValue)
+    public function testGetter(string $dataKey, string $dataValue)
     {
-        $sut = new TeamsMessage([
+        $message = new TeamsMessage([
             $dataKey => $dataValue
         ]);
 
-        $this->assertEquals($sut[$dataKey], $dataValue);
-        $this->assertEquals($sut->offsetGet($dataKey), $dataValue);
+        $this->assertEquals($message[$dataKey], $dataValue);
+        $this->assertEquals($message->offsetGet($dataKey), $dataValue);
     }
 
     public function provideMessageData(): array

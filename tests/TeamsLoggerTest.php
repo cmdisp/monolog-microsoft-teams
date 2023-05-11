@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 
 class TeamsLoggerTest extends TestCase
 {
-    public function testInterfaces()
+    public function testInterfaces(): void
     {
         $url = 'https://example.com';
         $sut = new TeamsLogger($url);

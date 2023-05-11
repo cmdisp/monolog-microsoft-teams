@@ -34,21 +34,21 @@ class TeamsLogHandlerTest extends TestCase
         return new TeamsLogHandler($this->incomingWebHookUrl, $this->loglevel);
     }
 
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $logHandler = $this->createLogHandler();
 
         $this->assertInstanceOf(AbstractProcessingHandler::class, $logHandler);
     }
 
-    public function testUsage()
+    public function testUsage(): void
     {
         $logHandler = $this->createLogHandler();
 
         $monolog = new Logger('TeamsLogHandlerTest');
         $monolog->pushHandler($logHandler);
 
-        // "isHandling" will return FALSE when no handlers at all are registered with monolog.
+        // "isHandling" will return false when no handlers at all are registered with Monolog.
         $this->assertTrue($monolog->isHandling($this->loglevel));
 
         // Send a message
