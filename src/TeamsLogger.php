@@ -2,22 +2,20 @@
 
 namespace CMDISP\MonologMicrosoftTeams;
 
-use Monolog\Formatter\FormatterInterface;
+use Monolog\Level;
 use Monolog\Logger;
 
 class TeamsLogger extends Logger
 {
     /**
-     * @param int|string $level
+     * @param string $url
+     * @param int|string|Level $level
+     * @param bool $bubble
      */
-    public function __construct(
-        string $url,
-        $level = Logger::DEBUG,
-        bool $bubble = true,
-        FormatterInterface $formatter = null
-    ) {
+    public function __construct(string $url, int|string|Level $level = Level::Debug, bool $bubble = true)
+    {
         parent::__construct('teams-logger');
 
-        $this->pushHandler(new TeamsLogHandler($url, $level, $bubble, $formatter));
+        $this->pushHandler(new TeamsLogHandler($url, $level, $bubble));
     }
 }
