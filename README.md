@@ -1,3 +1,9 @@
+## DEPRECATION NOTICE
+
+This package depends on the Office 365 connectors within Microsoft Teams. Microsoft has announced that they are [retiring](https://devblogs.microsoft.com/microsoft365dev/retirement-of-office-365-connectors-within-microsoft-teams/) the Office 365 connectors as of 15 August 2024. All connectors will stop working on 1 October 2024. Microsoft recommends Power Automate workflows as the solution for sending information to Teams. This new workflow format is not backward compatible.
+
+As a result, there is no viable path for us to continue to maintain this package beyond this point. It is therefore deprecated as of July 2024.
+
 # monolog-microsoft-teams
 
 Monolog Handler for sending messages to Microsoft Teams channels using the Incoming WebHook connector.
